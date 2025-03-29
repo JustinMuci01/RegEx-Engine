@@ -11,11 +11,14 @@
     <p>Enter a regular expression as well as a test string to find out if that string is in the regular expression.</p>
     <p class="subcaption">Special Symbols<br>. &rarr; ANY CHARACTER <br> 
         ? &rarr; 0 or 1 instances of previous character (optional) <br>* &rarr; 1+ instances of previous character
-    <br>+ &rarr; Union <br>^ &rarr; Start of the String <br>$ &rarr; End of the String</p>
+    <br>+ &rarr; Union <br></p>
     <p class = "info"> Enter Regular Expression: </p>
-    <input type="text">
+    <input type="text" id="reg-ex">
     <p class = "info"> Enter Test String</p>
-    <input type="text">
+    <input type="text" id="test-string">
+
+    <button class="js-test-button">TEST</button>
+    <p class="js-result"></p>
     <script src="index.js">
     </script>
 </body>

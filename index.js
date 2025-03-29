@@ -20,31 +20,18 @@ function match(pattern, text)
     {
         return true;
     }
-    if (pattern === '$' && text === "")
-    {
-        return true;
-    }
     else if (pattern[1] === '?')
     {
-        matchQuestion(pattern, text);
+        return matchQuestion(pattern, text);
     }
     else if (pattern[1] === '*')
     {
-        matchStar(pattern, text);
+       return matchStar(pattern, text);
     }
     else
     {
         return (matchOne(pattern[0], text[0]) && match(pattern.slice(1), text.slice(1)));
     }
-}
-
-function search(pattern, text)
-{
-    if (pattern[0] === "^") {
-        return match(pattern.slice(1), text);
-      } else {
-        return match(".*" + pattern, text);
-      }
 }
 
 function matchQuestion(pattern, text)
@@ -68,25 +55,27 @@ function matchStar(pattern, text)
 function unionSearch(pattern, text)
 {
     var rules = [];
-    rules = pattern.split("U");
+    rules = pattern.split("+");
 
     for (let s of rules)
     {
-        console.log(s);
         if (match(s, text))
         {
             return true;
         }
     }
+    return false;
 }
 
-const pattern = 'aab';
-const text = 'aaaaab';
-if (search(pattern, text))
-{
-    console.log('MATCH');
-}
-else
-{
-    console.log('NO MATCH');
-}
+document.querySelector('.js-test-button').addEventListener('click', ()=>{
+    const pattern = document.getElementbyId("reg-ex");
+    const text = document.getElementById("test-string");
+    if (unionSearch(pattern, text))
+    {
+        document.querySelector(".js-result").innerHTML = 'VALID';
+    }
+    else
+    {
+        document.querySelector('.js-result').innerHTML = 'INVALID';
+    }
+});
