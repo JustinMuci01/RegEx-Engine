@@ -19,6 +19,10 @@ function match(pattern, text)
     if (pattern === '')
     {
         return true;
+    } 
+    if (pattern === "$" && text === "")
+    {
+        return true;
     }
     else if (pattern[1] === '?')
     {
@@ -55,27 +59,107 @@ function matchStar(pattern, text)
 function unionSearch(pattern, text)
 {
     var rules = [];
-    rules = pattern.split("+");
-
-    for (let s of rules)
+    if (pattern.includes("+"))
     {
-        if (match(s, text))
+        rules = pattern.split("+");
+        for (let s of rules)
         {
-            return true;
-        }
-    }
-    return false;
-}
+            if (s[0] === "^")
+            {
+                if (match(s.slice(1), text))
+                    {
+                        return true;
+                    }
+            }
+            else
+            {
+                if (match(".*"+s, text))
+                {
+                    return true;
+                }
+            }
 
-document.querySelector('.js-test-button').addEventListener('click', ()=>{
-    const pattern = document.getElementbyId("reg-ex");
-    const text = document.getElementById("test-string");
-    if (unionSearch(pattern, text))
-    {
-        document.querySelector(".js-result").innerHTML = 'VALID';
+        }
     }
     else
     {
-        document.querySelector('.js-result').innerHTML = 'INVALID';
+        if (pattern[0] === "^")
+        {
+               return match(pattern.slice(1), text);
+        }
+        else
+        {
+            return match(".*"+pattern, text);
+        }
+    }
+}
+
+function getAlphabet(alphabet, regEx)
+{
+    for (const char of regEx)
+    {
+        if(char != "." && char!= "?" && char!= "*" && char!= "+" && char!= "$" && char != "^")
+        {
+            alphabet.add(char);
+        }
+    }
+}
+
+function setToString(alphabet)
+{
+    let myString = "";
+    let i=0;
+    alphabet.forEach(element => {
+        if (i>0)
+        {
+        myString += ", "
+        }
+        myString += element;
+        i++;
+    });
+    return myString
+}
+
+function setMatch(alphabet, chars)
+{
+    let i=0;
+    alphabet.forEach(element => {
+        console.log(element);
+        if (!chars.has(element))
+        {
+            return false;
+        }
+        i++
+    }); 
+
+    return (chars.size === i);
+}
+
+document.querySelector('.js-test-button').addEventListener('click', ()=>{
+    let pattern = document.getElementById("reg-ex").value;
+    let text = document.getElementById("test-string").value;
+    let alphabet = new Set();
+    getAlphabet(alphabet, pattern);
+
+    let textAlph = new Set();
+    getAlphabet(textAlph, text);
+
+    let arrayString = setToString(alphabet);
+    let textString = setToString(textAlph);
+
+    if (!setMatch(alphabet, textAlph))
+    {
+        document.querySelector('.js-result').innerHTML = `<p class= "js-info-incorrect-long"><img src="img/newRedX.png" alt="">&nbsp;&nbsp;INVALID STRING<br>
+        Expression alphabet and text alphabet do not match! <br> Expression alphabet: <br> &#931; = {${arrayString}}
+        <br> Text alphabet: <br> &#931; = {${textString}}</p>`;
+    }
+    else if (unionSearch(pattern, text))
+    {
+        document.querySelector('.js-result').innerHTML =`<p class= "js-info-correct"><img src="img/newCheck.png" alt="">&nbsp;&nbsp;VALID STRING<br>
+        Expression alphabet <br> &#931; = {${arrayString}}</p>`;
+    }
+    else
+    {
+        document.querySelector('.js-result').innerHTML = `<p class= "js-info-incorrect"><img src="img/newRedX.png" alt="">&nbsp;&nbsp;INVALID STRING<br>`;
     }
 });

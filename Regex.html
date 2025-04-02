@@ -8,17 +8,20 @@
 </head>
 <body>
     <h1>Regular Expression Engine</h1>
-    <p>Enter a regular expression as well as a test string to find out if that string is in the regular expression.</p>
+    <p class = "subcaption">Enter a regular expression as well as a test string to find out if that string is in the regular expression.</p>
     <p class="subcaption">Special Symbols<br>. &rarr; ANY CHARACTER <br> 
-        ? &rarr; 0 or 1 instances of previous character (optional) <br>* &rarr; 1+ instances of previous character
-    <br>+ &rarr; Union <br></p>
+        ? &rarr; 0 or 1 instances of previous character (optional) <br>* &rarr; 0+ instances of previous character
+    <br>+ &rarr; Union <br>^ &rarr; Beginning of string <br>$ &rarr; End of String </p>
+
+    <div class = "js-result">
+    </div>
+
     <p class = "info"> Enter Regular Expression: </p>
-    <input type="text" id="reg-ex">
+    <input type="text" id="reg-ex" placeholder="^ab$+ab*">
     <p class = "info"> Enter Test String</p>
-    <input type="text" id="test-string">
+    <input type="text" id="test-string" placeholder="abbb">
 
     <button class="js-test-button">TEST</button>
-    <p class="js-result"></p>
     <script src="index.js">
     </script>
 </body>

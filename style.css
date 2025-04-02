@@ -30,3 +30,69 @@ input[type="text"]{
     font-size: 20px;
     width: 200px;
 }
+
+button{
+    margin-left: 30px;
+    margin-top: 20px;
+    display:flex;
+    color:white;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    padding-right: 35px;
+    padding-left: 35px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    background-color:#381f1f
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+.js-info-correct{
+    display:flex;
+    flex-direction: row;
+    float:right;
+    margin-right: 800px;
+    background-color: rgb(47, 68, 47);
+    margin-bottom: 30px;
+    padding-left: 30px;
+    padding-right:30px;
+    border:2px solid;
+    border-color: #aaaaaa;
+    text-align: center;
+}
+
+.js-info-incorrect{
+    display:flex;
+    flex-direction: row;
+    float:right;
+    margin-right: 800px;
+    background-color: rgb(94, 1, 1);
+    margin-bottom: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border:2px solid;
+    border-color: #aaaaaa;
+    text-align: center;
+}
+
+.js-info-incorrect-long{
+    display:flex;
+    flex-direction: row;
+    float:right;
+    margin-right: 600px;
+    background-color: rgb(94, 1, 1);
+    margin-bottom: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border:2px solid;
+    border-color: #aaaaaa;
+    text-align: center;
+}
+
+img{
+    width:20px;
+    height:20px;
+}
